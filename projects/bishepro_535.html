@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基于微信小程序高校体育馆预约管理系统 - 计算机毕业设计源码 - 毕设项目库</title>
+<meta name="description" content="基于微信小程序高校体育馆预约管理系统 毕业设计源码下载，含完整源码、数据库、部署教程，适合毕业设计和课程设计参考学习。">
+<meta name="keywords" content="基于微信小程序高校体育馆预约管理系统,毕业设计源码,计算机毕设,课程设计,Java,Vue,MySQL,Layui,微信小程序,HTML,CSS,Tomcat">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8fafc;--card:#fff;--text:#0f172a;--dim:#64748b;--border:#e2e8f0;--accent:#6366f1;--accent-light:#eef2ff;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04)}
+body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.nav .logo{font-size:17px;font-weight:800;color:var(--accent)}
+.nav .back{font-size:13px;color:var(--dim);display:flex;align-items:center;gap:4px;transition:color .2s}
+.nav .back:hover{color:var(--accent)}
+.nav .back svg{width:16px;height:16px}
+
+.page{max-width:1060px;margin:0 auto;padding:24px 24px 60px}
+.layout{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+
+.main-col{min-width:0}
+
+/* Banner */
+.banner{border-radius:var(--radius);overflow:hidden;margin-bottom:20px;background:#f1f5f9}
+.banner img{width:100%;max-height:400px;object-fit:cover;display:block}
+.banner-ph{height:180px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef2ff,#f5f3ff);color:#c4b5fd;font-size:56px}
+
+.ptitle{font-size:21px;font-weight:750;line-height:1.45;margin-bottom:18px}
+
+/* Section */
+.sec{background:var(--card);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin-bottom:16px}
+.sec-head{font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:8px}
+.sec-head svg{width:18px;height:18px;color:var(--accent);flex-shrink:0}
+
+/* Formatted text */
+.fmt{font-size:14px;line-height:1.9;color:#374151}
+.fmt p{margin:0 0 8px}
+
+/* Detail HTML */
+.dhtml{font-size:14px;line-height:1.9;color:#374151}
+.dhtml img{max-width:100%;height:auto;border-radius:10px;margin:14px 0;display:block;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.dhtml h3,.dhtml h4{margin:20px 0 8px;font-weight:650;color:var(--text)}
+.dhtml p{margin:6px 0}
+.dhtml ul,.dhtml ol{margin:6px 0 6px 22px}
+.dhtml li{margin:3px 0;line-height:1.7}
+
+/* Sidebar */
+.sidebar{position:sticky;top:64px}
+.info-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
+.info-card h3{font-size:13px;font-weight:700;color:var(--dim);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.info-label{font-size:13px;color:var(--dim)}
+.info-value{font-size:13px;font-weight:600;text-align:right;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tech-grid{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.tech-tag{padding:5px 12px;background:var(--accent-light);color:var(--accent);border-radius:8px;font-size:12px;font-weight:600;transition:all .15s}
+.tech-tag:hover{background:var(--accent);color:#fff}
+
+/* Download button */
+.dl-btn{
+    display:block;width:100%;padding:12px;border:none;border-radius:var(--radius);
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:15px;
+    font-weight:700;cursor:pointer;text-align:center;transition:opacity .2s;
+    margin-bottom:14px;
+}
+.dl-btn:hover{opacity:.9}
+
+/* Download Modal */
+.dl-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+.dl-modal.show{display:flex}
+.dl-modal-box{background:#fff;border-radius:16px;padding:32px 28px;max-width:380px;width:90%;text-align:center;position:relative;animation:dlFadeIn .25s ease}
+@keyframes dlFadeIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.dl-modal-box .dm-close{position:absolute;top:12px;right:14px;width:30px;height:30px;border:none;background:none;cursor:pointer;font-size:20px;color:#94a3b8;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.dl-modal-box .dm-close:hover{background:#f1f5f9;color:#475569}
+.dl-modal-box h3{font-size:18px;font-weight:700;margin-bottom:6px;color:#0f172a}
+.dl-modal-box .dm-sub{font-size:13px;color:#64748b;margin-bottom:18px}
+.dl-modal-box .dm-qr{width:220px;height:220px;border-radius:12px;margin:0 auto 16px;display:block;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.dl-modal-box .dm-steps{text-align:left;font-size:13px;color:#475569;line-height:2;margin-bottom:16px;padding:14px 18px;background:#f8fafc;border-radius:10px}
+.dl-modal-box .dm-steps span{color:#6366f1;font-weight:700}
+.dl-modal-box .dm-note{font-size:11px;color:#94a3b8}
+
+/* Gallery */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.gallery-grid img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;cursor:pointer;transition:transform .2s;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.gallery-grid img:hover{transform:scale(1.02)}
+
+/* Lightbox */
+.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+.lb.show{display:flex}
+.lb img{max-width:92%;max-height:92%;border-radius:8px}
+.lb .x{position:absolute;top:16px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.12);border-radius:50%;border:none;cursor:pointer;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
+.lb .x:hover{background:rgba(255,255,255,.25)}
+.lb .arr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background:rgba(255,255,255,.12);border-radius:50%;border:none;cursor:pointer;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center}
+.lb .arr:hover{background:rgba(255,255,255,.25)}
+.lb .prv{left:16px}
+.lb .nxt{right:16px}
+.lb .cnt{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:13px}
+
+.seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.footer{max-width:1060px;margin:0 auto;padding:28px 24px;text-align:center;color:#94a3b8;font-size:12px;border-top:1px solid var(--border)}
+
+@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a class="logo" href="../index.html">毕设项目库</a>
+        <a class="back" href="../index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            返回列表
+        </a>
+    </div>
+</nav>
+
+<div class="page">
+<div class="layout">
+
+<div class="main-col">
+    <div class="banner"><img src="https://pic1.imgdb.cn/item/69c2dab52cb231a0e8777de4.png" alt="基于微信小程序高校体育馆预约管理系统"></div>
+    <h1 class="ptitle">基于微信小程序高校体育馆预约管理系统</h1>
+    
+    <div class="sec">
+        <div class="sec-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            项目简介
+        </div>
+        <div class="fmt"><p>[微信小程序毕业设计源码下载]基于微信小程序高校体育馆管理系统是基于微信小程序端，后端采用java编程语言，mysql数据库，ssm框架和idea开发工具，本系统分为管理员、用户、学生三个角色，本系统带论文，适合作为微信小程序毕业设计源码下载进行参考学习。</p></div>
+    </div>
+    
+    <div class="sec">
+        <div class="sec-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            项目详情
+        </div>
+        <div class="dhtml"><div class="tab-content" id="product-content">
+<div class="tab-pane active" id="tabContent1">
+<h2>运行环境</h2>
+<div class="alert">
+<ul>
+<li>jdk版本：1.8 及以上</li>
+<li>ide工具：IDEA ，微信小程序开发工具</li>
+<li>数据库:    mysql5.7 （必须5.7）</li>
+<li>编程语言: Java</li>
+<li>tomcat:   8.0 及以上</li><li>java框架：ssm</li><li>maven: 3.6.1</li><li>前端：layui ，微信，vue</li>
+<li>详细技术：<span class="text-danger">HTML+CSS+JS+vue+JAVA+ssm+MYSQL+JQUERY+MAVEN+微信开发工具</span></li>
+</ul>
+</div>
+<div class="alert with-icon">
+<i class="icon-smile"></i>
+<div class="content">
+<p class="text-danger">1.下载的设计文件都包含了安装视频教程，一步步教你怎么配置环境和运行设计，无需再担心不会安装的问题<br/>
+2.如果看视频教程安装没有运行成功，可以联系客服帮助远程调试，保证每个设计都能在电脑上运行成功为止<br/></p></div></div><p><br/></p><h2>内容包括</h2><p><font color="#ff0000">编号523，购买的内容主要包括有 系统源码+安装视频教程+数据库+安装环境+项目论文+答辩ppt+开题报告</font></p><p><img alt="微信截图_20241127112525" src="https://pic1.imgdb.cn/item/69c2d5362cb231a0e8777c10.png" style="max-width:100%;"/><span 30px;"="" font-size:="" pro",="" sans="" sans-serif;="" source="" style="color: inherit; font-family: "></span></p><p><span 30px;"="" font-size:="" pro",="" sans="" sans-serif;="" source="" style="color: inherit; font-family: ">主要功能</span></p><pre><code><p>基于微信小程序高校体育馆预约管理系统
+
+</p><p>系统主要分为用户，学生，管理员三个角色
+
+</p><p>前台微信端功能
+</p><p>1.登录注册: 用户登录或注册新账户
+</p><p>2.首页: 展示系统的基本信息和功能入口。
+</p><p>3.体育场: 查看和获取体育场的详细信息。
+</p><p>4.交流论坛: 参与讨论，与其他用户交流体育相关内容
+</p><p>5.我的: 用户的个人中心，管理个人信息和相关功能。
+</p><p>6.用户订单: 查看和管理用户的订单历史和状态,
+</p><p>7.评价信息: 提交和查看对服务或场馆的评价。
+</p><p>8.我的收藏管理: 查看和管理用户收藏的体育场和帖子。
+</p><p>9.我要发贴: 提交新帖子，与其他用户交流。
+</p><p>10.我的发贴: 查看和管理用户自己发布的帖子。
+
+</p><p>后台管理员端功能
+</p><p>1.个人中心: 管理后台用户的个人信息和权限设置。
+</p><p>2.状态管理: 查看和处理系统中的状态信息。
+</p><p>3.学生管理: 查看、编辑、添加和删除学生信息.
+</p><p>4.用户管理: 查看、编辑、添加和删除用户信息。
+</p><p>5.体育场管理: 管理体育场的信息，包括新增、修改和删除。
+</p><p>6.用户订单管理: 查看和处理用户的订单信息。
+</p><p>7.学生订单管理: 管理学生相关的订单信息，包括查看和处理。
+</p><p>8.评价信息管理: 查看和处理用户的评价信息。
+</p><p>9.交流论坛: 管理论坛的帖子和评论，包括查看和删除内容。
+</p><p>10.系统管理: 管理系统的公告和设置，包括新增、修改和删除。</p></code></pre><h2>设计截图</h2><p><font color="#ff0000">点击图片可以放大查看</font></p><p>基于微信小程序高校体育馆管理系统----微信系统主页</p><p><img alt="微信截图_20241127111252" src="https://pic1.imgdb.cn/item/69c2dab52cb231a0e8777de4.png" style="max-width:100%;"/></p><p><br/></p><p>基于微信小程序高校体育馆管理系统----用户在线查看体育场馆信息</p><p><img alt="微信截图_20241127111258" src="https://pic1.imgdb.cn/item/69c2f4dc2cb231a0e877db4b.png" style="max-width:100%;"/></p><p>基于微信小程序高校体育馆管理系统----用户个人中心</p><p><img alt="微信截图_20241127111311" src="https://pic1.imgdb.cn/item/69c2d01c2cb231a0e8776dcc.png" style="max-width: 100%;"/></p><p>基于微信小程序高校体育馆管理系统----用户在线提交预约信息</p><p><img alt="微信截图_20241127111304" src="https://pic1.imgdb.cn/item/69c2b8da13399d9f5166e856.png" style="max-width: 100%;"/></p><p><br/></p><p>基于微信小程序高校体育馆管理系统----管理员登陆页面</p><p><img alt="微信截图_20241127111047" src="https://pic1.imgdb.cn/item/69c2a51913399d9f5166d10e.png" style="max-width:100%;"/></p><p><br/></p><p>基于微信小程序高校体育馆管理系统----管理员对用户信息管理</p><p><img alt="微信截图_20241127111211" src="https://pic1.imgdb.cn/item/69c2b8ca13399d9f5166e83c.png" style="max-width:100%;"/></p><p>基于微信小程序高校体育馆管理系统----管理员对学生信息管理</p><p><img alt="微信截图_20241127111158" src="https://pic1.imgdb.cn/item/69c2b4e813399d9f5166e0a8.png" style="max-width: 100%;"/></p><p>基于微信小程序高校体育馆管理系统----管理员对学生订单信息管理</p><p><img alt="微信截图_20241127111240" src="https://www.bisheyun.com/uploads/images/wangEditor/202411/28/prouduct_1732756783_iP7Z3D1IbD.png" style="max-width: 100%;"/></p><p>基于微信小程序高校体育馆管理系统----管理员对体育场信息管理</p><p><img alt="微信截图_20241127111220" src="https://pic1.imgdb.cn/item/69c2b68e13399d9f5166e280.png" style="max-width: 100%;"/></p><p>基于微信小程序高校体育馆管理系统----管理员对用户预约的订单信息管理</p><p><img alt="微信截图_20241127111228" src="https://pic1.imgdb.cn/item/69c2a65513399d9f5166d2bc.png" style="max-width: 100%;"/></p><p><br/></p>
+</div>
+<div class="tab-pane" id="tabContent2">
+<p class="alert alert-info" style="margin-top: 20px">建议全屏和调节清晰度观看效果更佳，演示视频包括项目的主要功能介绍，下载内容介绍，具体的安装教程请下载查看</p>
+
+</div>
+<div class="tab-pane" id="tabContent3">
+<div style="margin:20px">
+<img class="img-responsive" src="https://pic1.imgdb.cn/item/69c2b59a13399d9f5166e167.png" style="width:100%"/>
+<img class="img-responsive" src="https://pic1.imgdb.cn/item/69c2c8ce2cb231a0e8776bc7.png" style="width:100%"/>
+<img class="img-responsive" src="https://pic1.imgdb.cn/item/69c2eb492cb231a0e877aa55.png" style="width:100%"/>
+</div>
+</div>
+</div></div>
+    </div>
+    
+    <div class="sec">
+        <div class="sec-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            项目截图（14 张）
+        </div>
+        <div class="gallery-grid">
+            <img src="https://pic1.imgdb.cn/item/69c2d5362cb231a0e8777c10.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2dab52cb231a0e8777de4.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2f4dc2cb231a0e877db4b.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2d01c2cb231a0e8776dcc.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b8da13399d9f5166e856.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2a51913399d9f5166d10e.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b8ca13399d9f5166e83c.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b4e813399d9f5166e0a8.png" alt="截图" loading="lazy">
+            <img src="https://www.bisheyun.com/uploads/images/wangEditor/202411/28/prouduct_1732756783_iP7Z3D1IbD.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b68e13399d9f5166e280.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2a65513399d9f5166d2bc.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b59a13399d9f5166e167.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2c8ce2cb231a0e8776bc7.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2eb492cb231a0e877aa55.png" alt="截图" loading="lazy">
+        </div>
+    </div>
+</div>
+
+<aside class="sidebar">
+    <button class="dl-btn" onclick="startDownload()">下载项目文件</button>
+    <div class="info-card"><h3>技术栈</h3><div class="tech-grid"><span class="tech-tag">Java</span><span class="tech-tag">Vue</span><span class="tech-tag">MySQL</span><span class="tech-tag">Layui</span><span class="tech-tag">微信小程序</span><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">Tomcat</span></div></div>
+    <div class="info-card">
+        <h3>项目信息</h3>
+        <div class="info-row"><span class="info-label">分类</span><span class="info-value">校园类型</span></div>
+    </div>
+</aside>
+
+</div>
+</div>
+
+<div class="seo" aria-hidden="true">
+<h2>基于微信小程序高校体育馆预约管理系统 毕业设计源码下载</h2>
+<p>基于微信小程序高校体育馆预约管理系统 计算机毕业设计 毕设源码 课程设计参考 Java,Vue,MySQL,Layui,微信小程序,HTML,CSS,Tomcat 毕业设计成品 含源码数据库</p>
+<p>Java毕业设计 Python毕设 SpringBoot毕设 Vue毕设 PHP毕设 微信小程序毕设 前后端分离 管理系统毕设 毕业论文 毕设答辩</p>
+</div>
+<footer class="footer">毕设项目库 &mdash; 精选计算机毕业设计资源</footer>
+
+<div class="dl-modal" id="dlm" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="dl-modal-box">
+        <button class="dm-close" onclick="document.getElementById('dlm').classList.remove('show')">&times;</button>
+        <h3>已开始下载</h3>
+        <p class="dm-sub">解压密码添加客服即可获得</p>
+        <img class="dm-qr" src="https://pic1.imgdb.cn/item/69bd3c540fd75e0c177780ba.jpg" alt="联系二维码">
+        <div class="dm-steps">
+            <span>Step 1:</span> 微信扫码添加客服<br>
+            <span>Step 2:</span> 发送项目名称<br>
+            <span>Step 3:</span> 获取解压密码
+        </div>
+        <p class="dm-note">文件以加密压缩包形式提供，添加客服后获取解压密码</p>
+    </div>
+</div>
+
+<div class="lb" id="lb" onclick="if(event.target===this)clb()">
+    <button class="x" onclick="clb()">&times;</button>
+    <button class="arr prv" onclick="event.stopPropagation();nlb(-1)">&#8249;</button>
+    <img id="li" src="">
+    <button class="arr nxt" onclick="event.stopPropagation();nlb(1)">&#8250;</button>
+    <div class="cnt" id="lc"></div>
+</div>
+
+<script>
+function startDownload(){var a=document.createElement('a');a.href='../bishepro_project.zip';a.download='bishepro_project.zip';document.body.appendChild(a);a.click();document.body.removeChild(a);document.getElementById('dlm').classList.add('show');}
+const imgs=[...document.querySelectorAll('.gallery-grid img,.dhtml img')];
+let ci=0;
+imgs.forEach((img,i)=>{img.onclick=e=>{e.preventDefault();ci=i;olb();}});
+function olb(){document.getElementById('lb').classList.add('show');document.getElementById('li').src=imgs[ci].src;document.getElementById('lc').textContent=(ci+1)+'/'+imgs.length;document.body.style.overflow='hidden';}
+function clb(){document.getElementById('lb').classList.remove('show');document.body.style.overflow='';}
+function nlb(d){ci=(ci+d+imgs.length)%imgs.length;document.getElementById('li').src=imgs[ci].src;document.getElementById('lc').textContent=(ci+1)+'/'+imgs.length;}
+document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='Escape')clb();if(e.key==='ArrowLeft')nlb(-1);if(e.key==='ArrowRight')nlb(1);});
+</script>
+</body>
+</html>

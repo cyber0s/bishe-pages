@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基于java体育竞赛成绩管理系统 - 计算机毕业设计源码 - 毕设项目库</title>
+<meta name="description" content="基于java体育竞赛成绩管理系统 毕业设计源码下载，含完整源码、数据库、部署教程，适合毕业设计和课程设计参考学习。">
+<meta name="keywords" content="基于java体育竞赛成绩管理系统,毕业设计源码,计算机毕设,课程设计,Java,MySQL,Layui,HTML,CSS,Tomcat">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8fafc;--card:#fff;--text:#0f172a;--dim:#64748b;--border:#e2e8f0;--accent:#6366f1;--accent-light:#eef2ff;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.05),0 4px 12px rgba(0,0,0,.04)}
+body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1060px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.nav .logo{font-size:17px;font-weight:800;color:var(--accent)}
+.nav .back{font-size:13px;color:var(--dim);display:flex;align-items:center;gap:4px;transition:color .2s}
+.nav .back:hover{color:var(--accent)}
+.nav .back svg{width:16px;height:16px}
+
+.page{max-width:1060px;margin:0 auto;padding:24px 24px 60px}
+.layout{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+
+.main-col{min-width:0}
+
+/* Banner */
+.banner{border-radius:var(--radius);overflow:hidden;margin-bottom:20px;background:#f1f5f9}
+.banner img{width:100%;max-height:400px;object-fit:cover;display:block}
+.banner-ph{height:180px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef2ff,#f5f3ff);color:#c4b5fd;font-size:56px}
+
+.ptitle{font-size:21px;font-weight:750;line-height:1.45;margin-bottom:18px}
+
+/* Section */
+.sec{background:var(--card);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);margin-bottom:16px}
+.sec-head{font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--accent);display:flex;align-items:center;gap:8px}
+.sec-head svg{width:18px;height:18px;color:var(--accent);flex-shrink:0}
+
+/* Formatted text */
+.fmt{font-size:14px;line-height:1.9;color:#374151}
+.fmt p{margin:0 0 8px}
+
+/* Detail HTML */
+.dhtml{font-size:14px;line-height:1.9;color:#374151}
+.dhtml img{max-width:100%;height:auto;border-radius:10px;margin:14px 0;display:block;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.dhtml h3,.dhtml h4{margin:20px 0 8px;font-weight:650;color:var(--text)}
+.dhtml p{margin:6px 0}
+.dhtml ul,.dhtml ol{margin:6px 0 6px 22px}
+.dhtml li{margin:3px 0;line-height:1.7}
+
+/* Sidebar */
+.sidebar{position:sticky;top:64px}
+.info-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
+.info-card h3{font-size:13px;font-weight:700;color:var(--dim);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.info-label{font-size:13px;color:var(--dim)}
+.info-value{font-size:13px;font-weight:600;text-align:right;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tech-grid{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.tech-tag{padding:5px 12px;background:var(--accent-light);color:var(--accent);border-radius:8px;font-size:12px;font-weight:600;transition:all .15s}
+.tech-tag:hover{background:var(--accent);color:#fff}
+
+/* Download button */
+.dl-btn{
+    display:block;width:100%;padding:12px;border:none;border-radius:var(--radius);
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:15px;
+    font-weight:700;cursor:pointer;text-align:center;transition:opacity .2s;
+    margin-bottom:14px;
+}
+.dl-btn:hover{opacity:.9}
+
+/* Download Modal */
+.dl-modal{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+.dl-modal.show{display:flex}
+.dl-modal-box{background:#fff;border-radius:16px;padding:32px 28px;max-width:380px;width:90%;text-align:center;position:relative;animation:dlFadeIn .25s ease}
+@keyframes dlFadeIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.dl-modal-box .dm-close{position:absolute;top:12px;right:14px;width:30px;height:30px;border:none;background:none;cursor:pointer;font-size:20px;color:#94a3b8;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.dl-modal-box .dm-close:hover{background:#f1f5f9;color:#475569}
+.dl-modal-box h3{font-size:18px;font-weight:700;margin-bottom:6px;color:#0f172a}
+.dl-modal-box .dm-sub{font-size:13px;color:#64748b;margin-bottom:18px}
+.dl-modal-box .dm-qr{width:220px;height:220px;border-radius:12px;margin:0 auto 16px;display:block;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.dl-modal-box .dm-steps{text-align:left;font-size:13px;color:#475569;line-height:2;margin-bottom:16px;padding:14px 18px;background:#f8fafc;border-radius:10px}
+.dl-modal-box .dm-steps span{color:#6366f1;font-weight:700}
+.dl-modal-box .dm-note{font-size:11px;color:#94a3b8}
+
+/* Gallery */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.gallery-grid img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;cursor:pointer;transition:transform .2s;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.gallery-grid img:hover{transform:scale(1.02)}
+
+/* Lightbox */
+.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+.lb.show{display:flex}
+.lb img{max-width:92%;max-height:92%;border-radius:8px}
+.lb .x{position:absolute;top:16px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.12);border-radius:50%;border:none;cursor:pointer;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center}
+.lb .x:hover{background:rgba(255,255,255,.25)}
+.lb .arr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background:rgba(255,255,255,.12);border-radius:50%;border:none;cursor:pointer;color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center}
+.lb .arr:hover{background:rgba(255,255,255,.25)}
+.lb .prv{left:16px}
+.lb .nxt{right:16px}
+.lb .cnt{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:13px}
+
+.seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.footer{max-width:1060px;margin:0 auto;padding:28px 24px;text-align:center;color:#94a3b8;font-size:12px;border-top:1px solid var(--border)}
+
+@media(max-width:860px){.layout{grid-template-columns:1fr}.sidebar{position:static}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a class="logo" href="../index.html">毕设项目库</a>
+        <a class="back" href="../index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+            返回列表
+        </a>
+    </div>
+</nav>
+
+<div class="page">
+<div class="layout">
+
+<div class="main-col">
+    <div class="banner"><img src="https://pic1.imgdb.cn/item/69c2b54913399d9f5166e114.png" alt="基于java体育竞赛成绩管理系统"></div>
+    <h1 class="ptitle">基于java体育竞赛成绩管理系统</h1>
+    
+    <div class="sec">
+        <div class="sec-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            项目简介
+        </div>
+        <div class="fmt"><p>[java毕业设计项目源码，java毕设下载]本设计采用java编程语言，mysql数据库，ssm框架和idea工具进行开发，本设计分为运动员，裁判，管理员三个角色，其中运动员可以注册登陆，查看项目，报名运行项目，查看赛程，比赛成绩，和证书信息；裁判可以对运动员的成绩进行打分；管理员对运动员，裁判员，公告，运动项目，比赛项目，项目报名，比赛赛程等功能进行管理。本设计功能齐全，文档齐全，适合作为java毕业设计来学习和参考。</p></div>
+    </div>
+    
+    <div class="sec">
+        <div class="sec-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            项目详情
+        </div>
+        <div class="dhtml"><div class="tab-content" id="product-content">
+<div class="tab-pane active" id="tabContent1">
+<h2>运行环境</h2>
+<div class="alert">
+<ul>
+<li>jdk版本：1.8 及以上</li>
+<li>ide工具：IDEA </li>
+<li>数据库:    mysql5.7 </li>
+<li>编程语言: Java</li>
+<li>tomcat:   8.0 及以上</li><li>java框架：SSM</li><li>maven: 3.6.1</li><li>前端：layui </li>
+<li>详细技术：<span class="text-danger">HTML+CSS+JS+JSP+JAVA+SSM+MYSQL+JQUERY+MAVEN</span></li>
+</ul>
+</div>
+<div class="alert with-icon">
+<i class="icon-smile"></i>
+<div class="content">
+<p class="text-danger">1.下载的设计文件都包含了安装视频教程，一步步教你怎么配置环境和运行设计，无需再担心不会安装的问题<br/>
+2.如果看视频教程安装没有运行成功，可以联系客服帮助远程调试，保证每个设计都能在电脑上运行成功为止<br/></p></div></div><p><br/></p><h2>内容包括</h2><h2></h2><h5><font color="#ff0000">编号168，购买的内容主要包括有  项目论文+项目源码+答辩ppt+数据库+安装视频教程+安装环境</font></h5><p><img alt="QQ截图20220705123434" src="https://pic1.imgdb.cn/item/69c2b54913399d9f5166e114.png"/></p><h2>主要功能</h2><pre><code><p>基于java体育竞赛成绩管理系统
+
+</p><p>系统分为运动品和管理员，裁判员三个角色
+</p><p>运动员的主要功能有：
+</p><p>1.注册和登陆系统
+</p><p>2.查看比赛的项目，在线报名运动项目
+</p><p>3.运动员查看已经报名的项目，查看报名的审核结果
+</p><p>4.运动员查看比赛的赛程信息
+</p><p>5.运动员查看比赛的成绩信息
+</p><p>6.运动员查看颁发给自己的证书信息
+</p><p>7.用户个人中心修改个人资料，修改密码
+</p><p>8.退出登陆
+
+</p><p>裁判员的主要功能有：
+</p><p>1.裁判员登陆系统
+</p><p>2.个人中心：裁判员修改密码和个人信息
+</p><p>3.比赛赛程管理：裁判员查看比赛的赛程信息，对赛程进行成绩的登记
+</p><p>4.比赛成绩管理：对比赛的成绩进行查询，修改，删除
+</p><p>5.退出登陆
+
+</p><p>管理员的主要功能有：
+</p><p>1.管理员输入账户登陆后台
+</p><p>2.个人中心：管理员修改密码和账户信息
+</p><p>3.运动员管理：对注册的运动员信息进行添加，删除，修改，查询，颁发证书
+</p><p>4.裁判员管理：对裁判员信息进行添加，修改，删除，查询
+</p><p>5.公告管理：对系统的公告进行添加，修改，删除，查询
+</p><p>6.公告类型管理：对系统的公告类型进行添加，修改，删除，查询
+</p><p>7.项目类型管理：对比赛项目的类型进行添加，修改，删除，查询
+</p><p>8.比赛项目管理：对比赛的项目进行添加，修改，删除，查询
+</p><p>8.项目报名管理：对学生发布的留言信息进行管理
+</p><p>9.比赛赛程管理：对比赛的赛程信息进行修改，删除，查询
+</p><p>10.比赛成绩管理：对运动员的比赛成绩进行查看，修改，删除，查询
+</p><p>11.证书颁发管理：对运动员的证书颁发进行查询，修改，删除
+</p><p>12.退出登陆</p></code></pre><h2>设计截图</h2><p><font color="#ff0000">点击图片可以放大查看</font></p><p>基于java体育竞赛成绩管理系统----系统登陆</p><p><img alt="QQ截图20220819152743" src="https://pic1.imgdb.cn/item/69c2b5df13399d9f5166e1c5.png" style="max-width:100%;"/><br/></p><p>基于java体育竞赛成绩管理系统----项目报名查看</p><p><img alt="QQ截图20220819152914" src="https://pic1.imgdb.cn/item/69c2d4562cb231a0e8777bc3.png" style="max-width:100%;"/></p><p>基于java体育竞赛成绩管理系统----运动员管理</p><p><img alt="QQ截图20220819152816" class="" src="https://pic1.imgdb.cn/item/69c2b5f313399d9f5166e1dd.png" style="max-width: 100%;"/></p><p>基于java体育竞赛成绩管理系统----证书管理</p><p><img alt="QQ截图20220819152852" class="" src="https://pic1.imgdb.cn/item/69c2e7da2cb231a0e877a141.png" style="max-width: 100%;"/></p><p>基于java体育竞赛成绩管理系统----在线提交报名信息</p><p><img alt="QQ截图20220819152921" class="" src="https://pic1.imgdb.cn/item/69c2a56d13399d9f5166d155.png" style="max-width: 100%;"/></p><p>基于java体育竞赛成绩管理系统----裁判员信息</p><p><img alt="QQ截图20220819152824" class="" src="https://pic1.imgdb.cn/item/69c2d0c12cb231a0e8776df8.png" style="max-width: 100%;"/></p><p>基于java体育竞赛成绩管理系统----公告信息管理</p><p><img alt="QQ截图20220819152837" class="" src="https://pic1.imgdb.cn/item/69c2a3ea13399d9f5166cf7c.png" style="max-width: 100%;"/></p><p>基于java体育竞赛成绩管理系统----比赛赛程管理</p><p><img alt="QQ截图20220819152843" class="" src="https://pic1.imgdb.cn/item/69c2b70113399d9f5166e2fd.png" style="max-width: 100%;"/><br/></p><p><br/></p>
+</div>
+<div class="tab-pane" id="tabContent2">
+<p class="alert alert-info" style="margin-top: 20px">建议全屏和调节清晰度观看效果更佳，演示视频包括项目的主要功能介绍，下载内容介绍，具体的安装教程请下载查看</p>
+
+</div>
+<div class="tab-pane" id="tabContent3">
+<div style="margin:20px">
+<img class="img-responsive" src="https://pic1.imgdb.cn/item/69c2b64d13399d9f5166e24c.png" style="width:100%"/>
+<img class="img-responsive" src="https://pic1.imgdb.cn/item/69c2d6fd2cb231a0e8777caa.png" style="width:100%"/>
+<img class="img-responsive" src="https://pic1.imgdb.cn/item/69c2c77a2cb231a0e8776b68.png" style="width:100%"/>
+</div>
+</div>
+</div></div>
+    </div>
+    
+    <div class="sec">
+        <div class="sec-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            项目截图（12 张）
+        </div>
+        <div class="gallery-grid">
+            <img src="https://pic1.imgdb.cn/item/69c2b54913399d9f5166e114.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b5df13399d9f5166e1c5.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2d4562cb231a0e8777bc3.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b5f313399d9f5166e1dd.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2e7da2cb231a0e877a141.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2a56d13399d9f5166d155.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2d0c12cb231a0e8776df8.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2a3ea13399d9f5166cf7c.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b70113399d9f5166e2fd.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2b64d13399d9f5166e24c.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2d6fd2cb231a0e8777caa.png" alt="截图" loading="lazy">
+            <img src="https://pic1.imgdb.cn/item/69c2c77a2cb231a0e8776b68.png" alt="截图" loading="lazy">
+        </div>
+    </div>
+</div>
+
+<aside class="sidebar">
+    <button class="dl-btn" onclick="startDownload()">下载项目文件</button>
+    <div class="info-card"><h3>技术栈</h3><div class="tech-grid"><span class="tech-tag">Java</span><span class="tech-tag">MySQL</span><span class="tech-tag">Layui</span><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">Tomcat</span></div></div>
+    <div class="info-card">
+        <h3>项目信息</h3>
+        <div class="info-row"><span class="info-label">分类</span><span class="info-value">管理系统</span></div>
+    </div>
+</aside>
+
+</div>
+</div>
+
+<div class="seo" aria-hidden="true">
+<h2>基于java体育竞赛成绩管理系统 毕业设计源码下载</h2>
+<p>基于java体育竞赛成绩管理系统 计算机毕业设计 毕设源码 课程设计参考 Java,MySQL,Layui,HTML,CSS,Tomcat 毕业设计成品 含源码数据库</p>
+<p>Java毕业设计 Python毕设 SpringBoot毕设 Vue毕设 PHP毕设 微信小程序毕设 前后端分离 管理系统毕设 毕业论文 毕设答辩</p>
+</div>
+<footer class="footer">毕设项目库 &mdash; 精选计算机毕业设计资源</footer>
+
+<div class="dl-modal" id="dlm" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="dl-modal-box">
+        <button class="dm-close" onclick="document.getElementById('dlm').classList.remove('show')">&times;</button>
+        <h3>已开始下载</h3>
+        <p class="dm-sub">解压密码添加客服即可获得</p>
+        <img class="dm-qr" src="https://pic1.imgdb.cn/item/69bd3c540fd75e0c177780ba.jpg" alt="联系二维码">
+        <div class="dm-steps">
+            <span>Step 1:</span> 微信扫码添加客服<br>
+            <span>Step 2:</span> 发送项目名称<br>
+            <span>Step 3:</span> 获取解压密码
+        </div>
+        <p class="dm-note">文件以加密压缩包形式提供，添加客服后获取解压密码</p>
+    </div>
+</div>
+
+<div class="lb" id="lb" onclick="if(event.target===this)clb()">
+    <button class="x" onclick="clb()">&times;</button>
+    <button class="arr prv" onclick="event.stopPropagation();nlb(-1)">&#8249;</button>
+    <img id="li" src="">
+    <button class="arr nxt" onclick="event.stopPropagation();nlb(1)">&#8250;</button>
+    <div class="cnt" id="lc"></div>
+</div>
+
+<script>
+function startDownload(){var a=document.createElement('a');a.href='../bishepro_project.zip';a.download='bishepro_project.zip';document.body.appendChild(a);a.click();document.body.removeChild(a);document.getElementById('dlm').classList.add('show');}
+const imgs=[...document.querySelectorAll('.gallery-grid img,.dhtml img')];
+let ci=0;
+imgs.forEach((img,i)=>{img.onclick=e=>{e.preventDefault();ci=i;olb();}});
+function olb(){document.getElementById('lb').classList.add('show');document.getElementById('li').src=imgs[ci].src;document.getElementById('lc').textContent=(ci+1)+'/'+imgs.length;document.body.style.overflow='hidden';}
+function clb(){document.getElementById('lb').classList.remove('show');document.body.style.overflow='';}
+function nlb(d){ci=(ci+d+imgs.length)%imgs.length;document.getElementById('li').src=imgs[ci].src;document.getElementById('lc').textContent=(ci+1)+'/'+imgs.length;}
+document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('show'))return;if(e.key==='Escape')clb();if(e.key==='ArrowLeft')nlb(-1);if(e.key==='ArrowRight')nlb(1);});
+</script>
+</body>
+</html>
